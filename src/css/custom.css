@@ -1,0 +1,30 @@
+.header-text {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.nav-bar-text {
+  font-size: 20px;
+}
+
+.list-group-item.active {
+  background-color: #d63384;
+  border-color: #d63384;
+}
+
+.list-group-item {
+  border-width: 2px;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.wd-flex-row {
+  display: flex;
+  flex-direction: row;
+}
