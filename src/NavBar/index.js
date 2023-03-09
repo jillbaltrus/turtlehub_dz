@@ -29,7 +29,6 @@ const NavBar = ({active}) => {
           <CalendarPlusFill className="me-3 mb-1" size={25}></CalendarPlusFill>
           New Event
         </Link>
-        const str = 'CalendarPlusFill';
       </div>
   );
 };
