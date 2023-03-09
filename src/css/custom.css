@@ -16,15 +16,51 @@
   border-width: 2px;
 }
 
-.float-left {
-  float: left;
-}
-
-.float-right {
-  float: right;
-}
-
 .wd-flex-row {
   display: flex;
   flex-direction: row;
+}
+
+.btn-primary {
+  background-color: #d63384;
+  border-color: #d63384;
+  --bs-btn-hover-bg: #b1236a;
+  --bs-btn-hover-border-color: #b1236a;
+  --bs-btn-active-bg: #b1236a;
+  --bs-btn-active-border-color: #b1236a;
+  font-size: 25px;
+  border-radius: 10px;
+  margin: 8px;
+}
+
+.form-check-input:checked {
+  background-color: #d63384;
+  border-color: #d63384;
+}
+
+.form-label {
+  font-size: 20px;
+}
+
+.form-control {
+  font-size: 20px;
+}
+
+.form-check-label {
+  font-size: 20px;
+  margin-left: 5px;
+}
+
+.custom-check-boxes {
+  width: 25px;
+  height: 25px;
+  margin: 2px;
+}
+
+.form-group {
+  margin-top: 6px;
+}
+
+.form-check {
+  margin-top: 6px;
 }
