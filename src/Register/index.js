@@ -3,7 +3,7 @@ import React, {useEffect} from "react";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 import {useToast} from '@chakra-ui/react';
-import {REGISTRATION_FAILURE} from "../reducers/user-reducer";
+import { REGISTRATION_FAILURE } from "../reducers/user-reducer";
 import RegistrationForm from "./RegistrationForm";
 
 function Register() {

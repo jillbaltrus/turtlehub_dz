@@ -90,7 +90,7 @@ function RegistrationForm() {
             Birthday:
           </label>
           <input type="date" className="form-control"
-                 id="date-input" value={birthday}
+                 id="date-input" value={new Date(birthday)}
                  onChange={(event) => setBirthday(event.target.value)}/>
         </div>
         <div className="form-group mb-1">
@@ -115,7 +115,7 @@ function RegistrationForm() {
                  id="private-profile-switch"
                  onChange={() => setPrivateProfile(!privateProfile)}/>
           <label className="form-check-label" htmlFor="private-profile-switch">
-            Display your email and phone number to others?
+            Hide your email and phone number from others?
           </label>
         </div>
         <div className="text-center m-3">

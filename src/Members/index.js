@@ -11,7 +11,6 @@ function Members() {
     async function getMembers() {
       const {payload} = await dispatch(findUsersThunk());
       setMembers(payload);
-      console.log(payload);
     }
 
     getMembers();

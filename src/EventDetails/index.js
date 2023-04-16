@@ -2,11 +2,13 @@ import NavBar from "../NavBar";
 import { useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {findEventsThunk} from "../services/event-thunks";
-import EventCalendar from "../Calendar";
+import {useParams} from "react-router";
 
-function Events() {
+function EventDetails() {
+  const { eid } = useParams();
   const { events, loading } = useSelector(state => state.event);
   const dispatch = useDispatch();
+  const event = events.find(e => e._id === eid);
 
   useEffect(() => {
     dispatch(findEventsThunk());
@@ -16,12 +18,13 @@ function Events() {
       <div className="row">
         <NavBar active="events"/>
         <div className="col-8">
-          <h1>
-            Events
-          </h1>
-          <EventCalendar></EventCalendar>
+          {!loading &&
+              <h1>
+                {event.title}
+              </h1>
+          }
         </div>
       </div>
   );
 }
-export default Events;
+export default EventDetails;

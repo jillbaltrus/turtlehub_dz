@@ -11,6 +11,7 @@ import {Provider} from "react-redux";
 import store from "./reducers/store";
 import CurrentUserContext from "./reducers/current-user-context";
 import Register from "./Register";
+import EventDetails from "./EventDetails";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/search" element={<Search/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
+                <Route path="/events/:eid" element={<EventDetails/>}/>
               </Routes>
             </BrowserRouter>
           </div>
