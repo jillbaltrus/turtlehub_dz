@@ -12,11 +12,14 @@ import store from "./reducers/store";
 import CurrentUserContext from "./reducers/current-user-context";
 import Register from "./Register";
 import EventDetails from "./EventDetails";
+import { Wrapper } from "@googlemaps/react-wrapper";
+
 
 function App() {
   return (
       <Provider store={store}>
         <CurrentUserContext>
+          {/*<Wrapper apiKey={"AIzaSyD4LosoXY1tPdu2HT5oPs_wvE8WkKi6ErY"}>*/}
           <div className="container ms-5 mt-3">
             <div className="row ms-2 header-text">
               Turtle Hub
@@ -36,6 +39,7 @@ function App() {
               </Routes>
             </BrowserRouter>
           </div>
+          {/*</Wrapper>*/}
         </CurrentUserContext>
       </Provider>
   );

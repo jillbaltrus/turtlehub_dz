@@ -12,19 +12,7 @@ import {
   AlertDialogHeader,
   AlertDialogOverlay, Center,
   useDisclosure,
-  useToast
 } from "@chakra-ui/react";
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-  PopoverAnchor,
-} from '@chakra-ui/react'
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router";
 
