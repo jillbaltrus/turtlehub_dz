@@ -4,7 +4,7 @@ import {
 } from "../services/event-thunks";
 
 export const CREATE_EVENT_FAILURE = 'CREATE_EVENT_FAILURE';
-export const FIND_TUITS_FAILURE = 'FIND_TUITS_FAILURE';
+export const FIND_EVENTS_FAILURE = 'FIND_EVENTS_FAILURE';
 
 const eventSlice = createSlice({
   name: "event",
@@ -26,7 +26,7 @@ const eventSlice = createSlice({
       state.error = null;
     },
     [findEventsThunk.rejected]: (state) => {
-      state.error = FIND_TUITS_FAILURE;
+      state.error = FIND_EVENTS_FAILURE;
       state.loading = false;
     },
     [findEventsThunk.pending]: (state) => {

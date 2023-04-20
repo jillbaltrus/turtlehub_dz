@@ -1,9 +1,6 @@
-import {
-  GoogleMap,
-  LoadScript, MarkerF
-} from "@react-google-maps/api";
+import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {findEventsThunk} from "../services/event-thunks";
 import {findLatAndLng, GOOGLE_MAPS_KEY} from "../services/google-maps-service";
 import EventMapMarker from "./EventMapMarker";
@@ -22,6 +19,10 @@ function Map({searchLocation}) {
   const dispatch = useDispatch();
   const [searchLocationCoordinates, setSearchLocationCoordinates] = useState(null);
   const [mapCenter, setMapCenter] = useState(defaultCenter);
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: GOOGLE_MAPS_KEY // ,
+    // ...otherOptions
+  })
 
   // TODO: handle bad search location
   useEffect(() => {
@@ -42,20 +43,24 @@ function Map({searchLocation}) {
     height: '400px'
   };
 
-  return (
-      <LoadScript googleMapsApiKey={GOOGLE_MAPS_KEY}>
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={mapCenter}
-            zoom={13}>
-          {events.map(e => <EventMapMarker key={e._id} event={e}/>)}
-          {(searchLocationCoordinates !== null) &&
-              <MarkerF
-                       position={searchLocationCoordinates} name={'Your Location'}>
-              </MarkerF>
-          }
-        </GoogleMap>
-      </LoadScript>
-  );
+  const renderMap = () => {
+    return <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={mapCenter}
+        zoom={13}>
+      {events.map(e => <EventMapMarker key={e._id} event={e}/>)}
+      {(searchLocationCoordinates !== null) &&
+          <MarkerF
+              position={searchLocationCoordinates} name={'Your Location'}>
+          </MarkerF>
+      }
+    </GoogleMap>
+  }
+
+  if (loadError) {
+    return <div>Map cannot be loaded right now, sorry.</div>
+  }
+
+  return isLoaded ? renderMap() : "";
 }
 export default Map;

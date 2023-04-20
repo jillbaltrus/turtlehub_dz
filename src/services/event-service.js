@@ -11,8 +11,19 @@ export const createEvent = async (newEvent) => {
   return event;
 };
 
+export const findEventById = async (eid) => {
+  const response = await api.get(`${EVENTS_URL}/${eid}`);
+  const event = response.data;
+  return event;
+};
+
 export const findEvents = async () => {
   const response = await api.get(`${EVENTS_URL}`);
   const events = response.data;
   return events;
+};
+
+export const deleteEvent = async (eid) => {
+  const response = await api.delete(`${EVENTS_URL}/${eid}`);
+  return response.data;
 };

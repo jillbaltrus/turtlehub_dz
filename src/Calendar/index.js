@@ -34,7 +34,6 @@ function EventCalendar() {
   const selectEvent = (s) => {
     setSelectedEvent(s);
     onOpen();
-    console.log(s);
   }
 
   const handleDetailsClick = () => {
