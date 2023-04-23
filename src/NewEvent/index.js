@@ -1,13 +1,13 @@
 import NavBar from "../NavBar";
 import NewEventForm from "./NewEventForm";
 import {useSelector} from "react-redux";
-import {useToast} from "@chakra-ui/react";
+import {Divider, useToast} from "@chakra-ui/react";
 import {useNavigate} from "react-router";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
 function NewEvent() {
-  const { currentUser } = useSelector((state) => state.user);
-  const { events, error } = useSelector((state) => state.event);
+  const {currentUser} = useSelector((state) => state.user);
+  const {events, error} = useSelector((state) => state.event);
   const toast = useToast();
   const navigate = useNavigate();
 
@@ -24,6 +24,7 @@ function NewEvent() {
           <h1>
             Create a New Event
           </h1>
+          <Divider borderWidth={'2px'} borderColor={'#75bde0'}/>
           <NewEventForm/>
         </div>
       </div>

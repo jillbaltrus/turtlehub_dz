@@ -1,14 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {
-  createEventThunk, findEventsThunk,
-} from "../services/event-thunks";
+import {createEventThunk, findEventsThunk,} from "../services/event-thunks";
 
 export const CREATE_EVENT_FAILURE = 'CREATE_EVENT_FAILURE';
 export const FIND_EVENTS_FAILURE = 'FIND_EVENTS_FAILURE';
 
 const eventSlice = createSlice({
   name: "event",
-  initialState: { events: [], error: null, loading: false },
+  initialState: {events: [], error: null, loading: false},
   reducers: {},
   extraReducers: {
     [createEventThunk.fulfilled]: (state, {payload}) => {
@@ -20,7 +18,7 @@ const eventSlice = createSlice({
       state.loading = false;
       state.error = CREATE_EVENT_FAILURE;
     },
-    [findEventsThunk.fulfilled]: (state, { payload }) => {
+    [findEventsThunk.fulfilled]: (state, {payload}) => {
       state.loading = false;
       state.events = payload;
       state.error = null;

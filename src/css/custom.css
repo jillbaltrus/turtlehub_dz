@@ -8,9 +8,10 @@
 }
 
 .list-group-item.active {
-  background-color: #d63384;
-  border-color: #d63384;
+  background-color: #9aba91;
+  border-color: #9aba91;
 }
+
 
 .list-group-item {
   border-width: 2px;
@@ -21,21 +22,57 @@
   flex-direction: row;
 }
 
+.float-right {
+  margin-left: 100px;
+  display: flex;
+  flex-direction: row;
+}
+
+.thick-divider {
+  border-width: 4px;
+}
+
+.align_center {
+  align-content: center;
+}
+
+.sand-border {
+  border-style: solid;
+  border-width: 3px;
+}
+
+.medium-border {
+  border-style: solid;
+  border-width: 2px;
+}
+
+
+.btn:disabled,
+.btn[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
 .btn-primary {
-  background-color: #d63384;
-  border-color: #d63384;
-  --bs-btn-hover-bg: #b1236a;
-  --bs-btn-hover-border-color: #b1236a;
-  --bs-btn-active-bg: #b1236a;
-  --bs-btn-active-border-color: #b1236a;
+  background-color: #75bde0;
+  border-color: #75bde0;
+  --bs-btn-hover-bg: #3b7097;
+  --bs-btn-hover-border-color: #3b7097;
+  --bs-btn-active-bg: #3b7097;
+  --bs-btn-active-border-color: #3b7097;
   font-size: 25px;
   border-radius: 10px;
   margin: 8px;
 }
 
+.turtle-img {
+  filter: invert(97%) sepia(94%) saturate(365%) hue-rotate(42deg) brightness(76%) contrast(84%);
+}
+
 .form-check-input:checked {
-  background-color: #d63384;
-  border-color: #d63384;
+  background-color: #a9d09e;
+  border-color: #a9d09e;
 }
 
 .form-label {

@@ -1,10 +1,10 @@
 import NavBar from "../NavBar";
 import React, {useEffect, useState} from "react";
-import { useNavigate } from "react-router";
+import {useNavigate} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import { loginThunk } from "../services/user-thunks";
+import {loginThunk} from "../services/user-thunks";
 import {Button} from "react-bootstrap";
-import { useToast } from '@chakra-ui/react';
+import {useToast} from '@chakra-ui/react';
 import {Link} from "react-router-dom";
 import {LOGIN_FAILURE} from "../reducers/user-reducer";
 
@@ -17,7 +17,7 @@ function Login() {
   const toast = useToast();
 
   const handleLogin = async () => {
-    await dispatch(loginThunk({ username, password }));
+    await dispatch(loginThunk({username, password}));
   };
 
   useEffect(() => {
@@ -64,4 +64,5 @@ function Login() {
       </div>
   );
 }
+
 export default Login;

@@ -15,13 +15,13 @@ import {HStack, Text} from "@chakra-ui/react";
 const NavBar = ({active}) => {
   const {currentUser} = useSelector((state) => state.user);
   return (
-      <div className="list-group col-4 border-3">
+      <div className="list-group col-4 border-3 mt-0 pt-0">
         <Link to="/"
               className={`list-group-item list-group-item-action nav-bar-text ${active
               === 'home' ? 'active' : ''}`}>
           <HStack>
             <HouseFill className="me-3 mb-1" size={25}></HouseFill>
-            <Text>Home</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>Home</Text>
           </HStack>
         </Link>
         <Link to="/events"
@@ -30,7 +30,7 @@ const NavBar = ({active}) => {
           <HStack>
             <CalendarWeekFill className="me-3 mb-1"
                               size={25}></CalendarWeekFill>
-            <Text>Events</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>Events</Text>
           </HStack>
         </Link>
         <Link to="/members"
@@ -38,7 +38,7 @@ const NavBar = ({active}) => {
               === 'members' ? 'active' : ''}`}>
           <HStack>
             <PeopleFill className="me-3 mb-1" size={25}></PeopleFill>
-            <Text>Members</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>Members</Text>
           </HStack>
         </Link>
         <Link to="/search"
@@ -46,7 +46,7 @@ const NavBar = ({active}) => {
               === 'search' ? 'active' : ''}`}>
           <HStack>
             <Search className="me-3 mb-1" size={25}></Search>
-            <Text>Search</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>Search</Text>
           </HStack>
         </Link>
 
@@ -56,7 +56,7 @@ const NavBar = ({active}) => {
                   === 'profile' ? 'active' : ''}`}>
               <HStack>
                 <PersonCircle className="me-3 mb-1" size={25}></PersonCircle>
-                <Text>My Profile</Text>
+                <Text fontWeight={"bold"} fontSize='2xl'>My Profile</Text>
               </HStack>
             </Link>}
         {!currentUser && <Link to="/login"
@@ -64,7 +64,7 @@ const NavBar = ({active}) => {
                                === 'login' ? 'active' : ''}`}>
           <HStack>
             <PersonFillLock className="me-3 mb-1" size={25}></PersonFillLock>
-            <Text>Login</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>Login</Text>
           </HStack>
         </Link>}
         {currentUser && currentUser.admin && <Link to="/newEvent"
@@ -74,7 +74,7 @@ const NavBar = ({active}) => {
           <HStack>
             <CalendarPlusFill className="me-3 mb-1"
                               size={25}></CalendarPlusFill>
-            <Text>New Event</Text>
+            <Text fontWeight={"bold"} fontSize='2xl'>New Event</Text>
           </HStack>
         </Link>}
       </div>

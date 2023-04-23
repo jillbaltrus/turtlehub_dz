@@ -3,15 +3,22 @@ import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router";
 import {
-  findUserByUsernameThunk,
+  findUserByIdThunk,
   logoutThunk,
   profileThunk,
   updateUserThunk
 } from "../services/user-thunks";
-import {useToast} from "@chakra-ui/react";
-import {GearFill} from "react-bootstrap-icons";
+import {Divider, HStack, Text, useToast} from "@chakra-ui/react";
+import {
+  Balloon,
+  ChatLeft,
+  Envelope,
+  GearFill,
+  Phone
+} from "react-bootstrap-icons";
 import {Button} from "react-bootstrap";
 import {FIND_USER_ERROR} from "../reducers/user-reducer";
+import UpcomingEvents from "./UpcomingEvents";
 
 function MyProfile() {
   const {user} = useParams();
@@ -34,6 +41,12 @@ function MyProfile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
+
+  const dateOptions = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  };
 
   useEffect(() => {
     if (currentUser !== null && currentUser !== undefined) {
@@ -86,8 +99,8 @@ function MyProfile() {
       setProfile(payload);
     }
 
-    async function getProfileByUsername(user) {
-      const {payload} = await dispatch((findUserByUsernameThunk(user)));
+    async function getProfileById(user) {
+      const {payload} = await dispatch((findUserByIdThunk(user)));
       if (payload === undefined || payload === null) {
         return;
       }
@@ -95,10 +108,10 @@ function MyProfile() {
     }
 
     if (user) {
-      if (currentUser && currentUser.username === user) {
+      if (currentUser && currentUser._id === user) {
         setIsCurrentUsersProfile(true);
       }
-      getProfileByUsername(user);
+      getProfileById(user);
       return;
     }
     getProfile();
@@ -121,6 +134,13 @@ function MyProfile() {
     }
     dispatch(updateUserThunk(newProfile));
     setEditMode(false);
+    toast({
+      position: 'top',
+      title: 'Profile saved',
+      status: 'success',
+      duration: 9000,
+      isClosable: true,
+    });
   }
 
   async function logOut() {
@@ -146,17 +166,36 @@ function MyProfile() {
         <div className="col-6">
           {!editMode &&
               <>
-                <h1 className={"float-left"}>{firstName + " " + lastName} • @{username}</h1>
-                <h4 className={"m-3"}>{bio}</h4>
-                <h4 className={"m-3"}>Birthday: {new Date(
-                    birthday).toLocaleDateString("en-US")}</h4>
-                <h4 className={"m-3"}>Age: {getAge(birthday)} years old</h4>
+                <Text fontSize="5xl" className={"m-2 mb-0 pb-0"}>{firstName
+                    + " " + lastName}</Text>
+                <Divider borderWidth={'2px'} borderColor={'#75bde0'}/>
+                {bio.length > 0 &&
+                    <HStack className="m-3 mb-0">
+                      <ChatLeft className="mb-1" size={35}></ChatLeft>
+                      <Text fontSize="2xl" className="m-3">{bio}</Text>
+                    </HStack>
+                }
+                <HStack className="m-3 mb-0 mt-0">
+                  <Balloon className="mb-1" size={35}></Balloon>
+                  <Text fontSize="2xl" className="m-3">Born {new Date(
+                      birthday).toLocaleDateString("en-US",
+                      dateOptions)} ({getAge(birthday)} years old)</Text>
+                </HStack>
                 {(isCurrentUsersProfile || !privateProfile) &&
                     <>
-                      <h4 className={"m-3"}>Phone: {phone}</h4>
-                      <h4 className={"m-3"}>Email: {email} </h4>
+                      <HStack className="m-3 mb-0 mt-0">
+                        <Phone className="mb-1" size={35}></Phone>
+                        <Text fontSize="2xl" className="m-3">Phone
+                          number: {phone}</Text>
+                      </HStack>
+                      <HStack className="m-3 mt-0">
+                        <Envelope className="mb-1" size={35}></Envelope>
+                        <Text fontSize="2xl"
+                              className="m-3">Email: {email}</Text>
+                      </HStack>
                     </>
                 }
+                <Divider borderWidth={'2px'} borderColor={'#75bde0'}/>
               </>
           }
           {editMode &&
@@ -214,7 +253,8 @@ function MyProfile() {
                       Birthday:
                     </label>
                     <input type="date" className="form-control"
-                           id="date-input" value={birthday.toString().split('T')[0]}
+                           id="date-input"
+                           value={birthday.toString().split('T')[0]}
                            onChange={(event) => setBirthday(
                                event.target.value)}/>
                   </div>
@@ -251,14 +291,15 @@ function MyProfile() {
                   </div>
                 </div>
                 <div className="text-center m-3">
-                <Button onClick={logOut}>
-                  Log out
-                </Button>
-                <Button onClick={save}>Save</Button>
-                <Button onClick={() => setEditMode(false)}>Cancel</Button>
+                  <Button onClick={logOut}>
+                    Log out
+                  </Button>
+                  <Button onClick={save}>Save</Button>
+                  <Button onClick={() => setEditMode(false)}>Cancel</Button>
                 </div>
               </>
           }
+          {!editMode && <UpcomingEvents user={profile}/>}
 
         </div>
         {isCurrentUsersProfile ?

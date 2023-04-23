@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {
-  findUserByUsernameThunk,
+  findUserByIdThunk,
   findUsersThunk,
   loginThunk,
   logoutThunk,
@@ -44,10 +44,10 @@ const userSlice = createSlice({
     [registerThunk.rejected]: (state) => {
       state.error = REGISTRATION_FAILURE;
     },
-    [findUserByUsernameThunk.rejected]: (state) => {
+    [findUserByIdThunk.rejected]: (state) => {
       state.error = FIND_USER_ERROR;
     },
-    [findUserByUsernameThunk.fulfilled]: (state) => {
+    [findUserByIdThunk.fulfilled]: (state) => {
       state.error = null;
     },
     [findUsersThunk.fulfilled]: (state) => {

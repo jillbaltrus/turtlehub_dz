@@ -1,4 +1,5 @@
 import axios from "axios";
+import {deleteRsvpsForEvent} from "./rsvps-service";
 
 const SERVER_API_URL = process.env.REACT_APP_SERVER_API_URL;
 const EVENTS_URL = `${SERVER_API_URL}/events`;
@@ -25,5 +26,6 @@ export const findEvents = async () => {
 
 export const deleteEvent = async (eid) => {
   const response = await api.delete(`${EVENTS_URL}/${eid}`);
+  await deleteRsvpsForEvent(eid);
   return response.data;
 };

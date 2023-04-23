@@ -1,8 +1,9 @@
-import { Calendar, momentLocalizer } from 'react-big-calendar'
+import {Calendar, momentLocalizer} from 'react-big-calendar'
+import {Clock, GeoAlt} from "react-bootstrap-icons";
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {findEventsThunk} from "../services/event-thunks";
 import {
   AlertDialog,
@@ -10,7 +11,10 @@ import {
   AlertDialogContent,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogOverlay, Center,
+  AlertDialogOverlay,
+  Center,
+  Divider,
+  Flex,
   useDisclosure,
 } from "@chakra-ui/react";
 import {Button} from "react-bootstrap";
@@ -19,13 +23,15 @@ import {useNavigate} from "react-router";
 const localizer = momentLocalizer(moment);
 
 function EventCalendar() {
-  const { events } = useSelector(state => state.event);
+  const {events} = useSelector(state => state.event);
   const dispatch = useDispatch();
   const cancelRef = useRef();
   const navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedEvent, setSelectedEvent] = useState({title: "",
-  _id: "", description: "", startDateTime: new Date(), endDateTime: new Date()});
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const [selectedEvent, setSelectedEvent] = useState({
+    title: "",
+    _id: "", description: "", startDateTime: new Date(), endDateTime: new Date()
+  });
 
   useEffect(() => {
     dispatch(findEventsThunk());
@@ -37,11 +43,11 @@ function EventCalendar() {
   }
 
   const handleDetailsClick = () => {
-    navigate(`/events/${selectedEvent._id}`);
+    navigate(`/details/${selectedEvent._id}`);
   }
 
   return (
-      <>
+      <div className={"align-center"}>
         <AlertDialog
             isOpen={isOpen}
             leastDestructiveRef={cancelRef}
@@ -49,42 +55,52 @@ function EventCalendar() {
             isCentered>
           <AlertDialogOverlay>
             <AlertDialogContent>
-              <AlertDialogHeader fontSize='lg' fontWeight='bold' className={"mb-0 pb-0"}>
+              <AlertDialogHeader fontSize='lg' fontWeight='bold'
+                                 className={"mb-0 pb-0"}>
                 {selectedEvent.title}
               </AlertDialogHeader>
-              <AlertDialogBody  className={"mt-0 pt-0"}>
+              <AlertDialogBody className={"m-1 mt-0 pt-0"}>
                 {selectedEvent.description}
-                <br/>
-                {moment(selectedEvent.startDateTime).format('h:mm a')} to {moment(selectedEvent.endDateTime).format('h:mm a')}
+                <Divider borderWidth={'1px'} borderColor={'#75bde0'}/>
+                <Flex className="m-1">
+                  <Clock className="mb-1 mt-0 me-1" size={25}></Clock>
+                  {moment(selectedEvent.startDateTime).format(
+                      'h:mm a')} to {moment(selectedEvent.endDateTime).format(
+                    'h:mm a')}
+                </Flex>
+                <Flex className="m-1">
+                  <GeoAlt className="mb-1 mt-0 me-1" size={25}></GeoAlt>
+                  {selectedEvent.location}
+                </Flex>
               </AlertDialogBody>
               <Center>
-              <AlertDialogFooter className={"mt-0 pt-0"}>
-                <Button size={"sm"} ref={cancelRef} onClick={onClose}>
-                  Close
-                </Button>
-                <Button size={"sm"} onClick={handleDetailsClick} ml={3}>
-                  Details
-                </Button>
-              </AlertDialogFooter>
+                <AlertDialogFooter className={"mt-0 pt-0"}>
+                  <Button size={"sm"} ref={cancelRef} onClick={onClose}>
+                    Close
+                  </Button>
+                  <Button size={"sm"} onClick={handleDetailsClick} ml={3}>
+                    Details
+                  </Button>
+                </AlertDialogFooter>
               </Center>
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
-      <div>
-        <div style={{ height: '500pt'}}>
-          <Calendar
-              events={events}
-              startAccessor="startDateTime"
-              endAccessor="endDateTime"
-              defaultDate={moment().toDate()}
-              localizer={localizer}
-              popup={true}
-              onSelectEvent={(s) => selectEvent(s)}
-              tooltipAccessor={(e) => e.title}
-          />
+        <div>
+          <div style={{height: '500pt'}}>
+            <Calendar
+                events={events}
+                startAccessor="startDateTime"
+                endAccessor="endDateTime"
+                defaultDate={moment().toDate()}
+                localizer={localizer}
+                popup={true}
+                onSelectEvent={(s) => selectEvent(s)}
+                tooltipAccessor={(e) => e.title}
+            />
+          </div>
         </div>
       </div>
-      </>
   );
 }
 

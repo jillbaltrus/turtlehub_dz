@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import usersReducer from "./user-reducer";
 import eventsReducer from "./event-reducer";
 

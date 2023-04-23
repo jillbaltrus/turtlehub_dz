@@ -11,19 +11,25 @@ import {Provider} from "react-redux";
 import store from "./reducers/store";
 import CurrentUserContext from "./reducers/current-user-context";
 import Register from "./Register";
-import EventDetails from "./EventDetails";
-import { Wrapper } from "@googlemaps/react-wrapper";
-
+import EventDetailsPage from "./EventDetails";
+import {HStack, Text} from "@chakra-ui/react";
 
 function App() {
   return (
       <Provider store={store}>
         <CurrentUserContext>
-          {/*<Wrapper apiKey={"AIzaSyD4LosoXY1tPdu2HT5oPs_wvE8WkKi6ErY"}>*/}
           <div className="container ms-5 mt-3">
-            <div className="row ms-2 header-text">
-              Turtle Hub
-            </div>
+            <HStack>
+              <Text
+                  bgGradient='linear(to-l, #A9D09E, #75BDE0)'
+                  bgClip='text'
+                  fontSize='6xl'
+                  fontWeight='extrabold'>
+                Turtle Hub
+              </Text>
+              <img className="ms-2 mb-3 turtle-img" width={40}
+                   src={require(`./icons/turtle.png`)}/>
+            </HStack>
             <BrowserRouter>
               <Routes>
                 <Route index element={<Home/>}/>
@@ -33,13 +39,13 @@ function App() {
                 <Route path="/profile" element={<MyProfile/>}/>
                 <Route path="/profile/:user" element={<MyProfile/>}/>
                 <Route path="/search" element={<Search/>}/>
+                <Route path="/search/:search" element={<Search/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
-                <Route path="/events/:eid" element={<EventDetails/>}/>
+                <Route path="/details/:eid" element={<EventDetailsPage/>}/>
               </Routes>
             </BrowserRouter>
           </div>
-          {/*</Wrapper>*/}
         </CurrentUserContext>
       </Provider>
   );

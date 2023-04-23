@@ -8,8 +8,8 @@ import {useNavigate} from "react-router";
 import {useToast} from "@chakra-ui/react";
 
 function NewEventForm() {
-  const { currentUser } = useSelector((state) => state.user);
-  const { error } = useSelector((state) => state.event);
+  const {currentUser} = useSelector((state) => state.user);
+  const {error} = useSelector((state) => state.event);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const toast = useToast();
@@ -53,7 +53,6 @@ function NewEventForm() {
         isClosable: true,
       });
     } else {
-      // TODO: navigate to specific event page
       navigate('/events');
       toast({
         position: 'top',
@@ -62,17 +61,18 @@ function NewEventForm() {
         duration: 9000,
         isClosable: true,
       });
-    }};
+    }
+  };
 
   const handleSubmit = async () => {
     const event = {
       "title": title,
       "startDateTime": moment(startDate + ' ' + startTime, "YYYY-MM-DD HH:mm"),
-      "endDateTime": moment( endDate+ ' ' + endTime, "YYYY-MM-DD HH:mm"),
+      "endDateTime": moment(endDate + ' ' + endTime, "YYYY-MM-DD HH:mm"),
       "location": location,
       "description": description,
       "mandatory": mandatory,
-      "points": [], //TODO,
+      "points": points,
       "limitSignUps": enableMaxParticipants,
       "maxParticipants": maxParticipants,
       "communityServiceHours": communityServiceHours,
@@ -95,14 +95,16 @@ function NewEventForm() {
           </label>
           <input className="form-control" id="title-input"
                  placeholder="My new event!" title="Enter event title"
-                 type="text" onChange={(event) => setTitle(event.target.value)}/>
+                 type="text"
+                 onChange={(event) => setTitle(event.target.value)}/>
         </div>
 
         <div className="form-group mb-1">
           <label htmlFor="start-date-input" className="form-label">
             Start Date:
           </label>
-          <input type="date" className="form-control" onChange={(event) => setStartDate(event.target.value)}
+          <input type="date" className="form-control"
+                 onChange={(event) => setStartDate(event.target.value)}
                  id="start-date-input"/>
         </div>
 
@@ -111,7 +113,8 @@ function NewEventForm() {
             Start Time:
           </label>
           <input type="time" className="form-control"
-                 id="start-time-input" onChange={(event) => setStartTime(event.target.value)}/>
+                 id="start-time-input"
+                 onChange={(event) => setStartTime(event.target.value)}/>
         </div>
 
         <div className="form-group mb-1">
@@ -119,7 +122,8 @@ function NewEventForm() {
             End Date:
           </label>
           <input type="date" className="form-control"
-                 id="end-date-input" onChange={(event) => setEndDate(event.target.value)}/>
+                 id="end-date-input"
+                 onChange={(event) => setEndDate(event.target.value)}/>
         </div>
 
         <div className="form-group mb-1">
@@ -127,7 +131,8 @@ function NewEventForm() {
             End Time:
           </label>
           <input type="time" className="form-control"
-                 id="end-time-input" onChange={(event) => setEndTime(event.target.value)}/>
+                 id="end-time-input"
+                 onChange={(event) => setEndTime(event.target.value)}/>
         </div>
 
         <div className="form-group mb-1">
@@ -137,7 +142,8 @@ function NewEventForm() {
           <input className="form-control" id="location-input"
                  placeholder="123 Huntington ave, Boston, MA"
                  title="Enter location"
-                 type="text" onChange={(event) => setLocation(event.target.value)}/>
+                 type="text"
+                 onChange={(event) => setLocation(event.target.value)}/>
         </div>
 
         <div className="form-check form-switch form-control-lg pb-0">
@@ -154,12 +160,15 @@ function NewEventForm() {
           <label htmlFor="description-input"
                  className="form-label">Description:</label>
           <textarea className="form-control" id="description-input" rows="3"
-                    title="Enter event description" onChange={(event) => setDescription(event.target.value)}></textarea>
+                    title="Enter event description"
+                    onChange={(event) => setDescription(
+                        event.target.value)}></textarea>
         </div>
 
         <div className="form-check">
           <input className="form-check-input custom-check-boxes" type="checkbox"
-                 value="ACADEMIC" onChange={(event) => handlePointClicked(event.target.value)}
+                 value="ACADEMIC"
+                 onChange={(event) => handlePointClicked(event.target.value)}
                  id="academic-point-checkbox"/>
           <label className="form-check-label" htmlFor="academic-point-checkbox">
             Academic Point
@@ -167,7 +176,8 @@ function NewEventForm() {
         </div>
         <div className="form-check">
           <input className="form-check-input custom-check-boxes" type="checkbox"
-                 value="DEI" onChange={(event) => handlePointClicked(event.target.value)}
+                 value="DEI"
+                 onChange={(event) => handlePointClicked(event.target.value)}
                  id="dei-point-checkbox"/>
           <label className="form-check-label" htmlFor="dei-point-checkbox">
             Diversity & Inclusion Point
@@ -175,7 +185,8 @@ function NewEventForm() {
         </div>
         <div className="form-check">
           <input className="form-check-input custom-check-boxes" type="checkbox"
-                 value="GREEK" onChange={(event) => handlePointClicked(event.target.value)}
+                 value="GREEK"
+                 onChange={(event) => handlePointClicked(event.target.value)}
                  id="greek-point-checkbox"/>
           <label className="form-check-label" htmlFor="greek-point-checkbox">
             Greek Point
@@ -183,7 +194,8 @@ function NewEventForm() {
         </div>
         <div className="form-check">
           <input className="form-check-input custom-check-boxes" type="checkbox"
-                 value="RISK" onChange={(event) => handlePointClicked(event.target.value)}
+                 value="RISK"
+                 onChange={(event) => handlePointClicked(event.target.value)}
                  id="risk-point-checkbox"/>
           <label className="form-check-label" htmlFor="risk-point-checkbox">
             Risk Point
@@ -191,7 +203,8 @@ function NewEventForm() {
         </div>
         <div className="form-check">
           <input className="form-check-input custom-check-boxes" type="checkbox"
-                 value="SISTERHOOD" onChange={(event) => handlePointClicked(event.target.value)}
+                 value="SISTERHOOD"
+                 onChange={(event) => handlePointClicked(event.target.value)}
                  id="sisterhood-point-checkbox"/>
           <label className="form-check-label"
                  htmlFor="sisterhood-point-checkbox">
@@ -212,7 +225,8 @@ function NewEventForm() {
             Number of community service hours:
           </label>
           <input className="form-control" id="cs-hours-input" type="number"
-                 defaultValue={0} onChange={(event) => setCommunityServiceHours(event.target.value)}
+                 defaultValue={0} onChange={(event) => setCommunityServiceHours(
+              event.target.value)}
                  disabled={(!enableCommunityServiceHours)}/>
         </div>
 
@@ -220,7 +234,8 @@ function NewEventForm() {
           <input className="form-check-input custom-switches" type="checkbox"
                  role="switch"
                  id="max-participants-switch"
-                 onChange={() => setEnableMaxParticipants(!enableMaxParticipants)}/>
+                 onChange={() => setEnableMaxParticipants(
+                     !enableMaxParticipants)}/>
           <label className="form-check-label" htmlFor="max-participants-switch">
             Limited availability?
           </label>
@@ -230,12 +245,14 @@ function NewEventForm() {
                  className="form-label inactive">
             Maximum number of participants:
           </label>
-          <input className="form-control" onChange={(event) => setMaxParticipants(event.target.value)}
+          <input className="form-control"
+                 onChange={(event) => setMaxParticipants(event.target.value)}
                  disabled={(!enableMaxParticipants)}
                  id="max-participants-input" type="number"/>
         </div>
         <div className="text-center m-3">
-          <Button disabled={!enableButton} onClick={handleSubmit}>Create Event!</Button>
+          <Button disabled={!enableButton} onClick={handleSubmit}>Create
+            Event!</Button>
         </div>
       </>
   );
