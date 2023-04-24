@@ -1,22 +1,25 @@
 import NavBar from "../NavBar";
 import Map from "./Map";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button} from "react-bootstrap";
 import SearchResults from "./SearchResults";
-import {useParams} from "react-router";
+import {useNavigate, useParams} from "react-router";
 import {Divider, HStack} from "@chakra-ui/react";
 
 function Search() {
   const [searchLocation, setSearchLocation] = useState("");
   const {search} = useParams();
-  // const [searchTerm, setSearchTerm] = useState(search ? search : "");
-  const [searchTerm, setSearchTerm] = useState("");
-  // const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState(search ? search : "");
+  const navigate = useNavigate();
 
   const handleButtonClick = () => {
-    // navigate(`/search/${searchTerm}`)
+    navigate(`/search/${searchTerm}`)
     setSearchLocation(searchTerm);
   }
+
+  useEffect(() => {
+    setSearchLocation(search);
+  }, []);
 
   return (
       <div className="row">
@@ -29,6 +32,7 @@ function Search() {
             </label>
             <HStack className={"m-4 mb-0 mt-0"}>
               <input size="50" className="form-control" id="search-input"
+                     value={searchTerm}
                      placeholder="Your address" title="Enter location here"
                      type="text"
                      onChange={(event) => setSearchTerm(event.target.value)}/>

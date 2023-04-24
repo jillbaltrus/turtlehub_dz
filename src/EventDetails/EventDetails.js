@@ -9,6 +9,7 @@ import {
 } from "react-bootstrap-icons";
 import React, {useEffect, useState} from "react";
 import {findUserById} from "../services/user-service";
+import {Link} from "react-router-dom";
 
 function EventDetails({event}) {
   const [createdBy, setCreatedBy] = useState(undefined);
@@ -70,11 +71,13 @@ function EventDetails({event}) {
               : "Not mandatory"}</Text>
         </HStack>
         {createdBy &&
-            <HStack className={"m-1"}>
-              <Person className="mb-1" size={35}></Person>
-              <Text fontSize='xl'>Created
-                by {createdBy.firstName} {createdBy.lastName}</Text>
-            </HStack>
+            <Link to={`/profile/${createdBy._id}`}>
+              <HStack className={"m-1"}>
+                <Person className="mb-1" size={35}></Person>
+                <Text fontSize='xl'>Created
+                  by {createdBy.firstName} {createdBy.lastName}</Text>
+              </HStack>
+            </Link>
         }
       </>
   );

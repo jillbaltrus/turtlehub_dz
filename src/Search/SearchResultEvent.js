@@ -18,7 +18,7 @@ function SearchResultEvent({result}) {
 
   return (
       <div className="list-group-item sand-border width-100p m-0 p-3">
-        <Grid templateColumns='repeat(3, 1fr)' spacing={"12"}
+        <Grid templateColumns='repeat(3, 1fr)' spacing={"10"}
               className={"mb-0 pb-0"}>
           <GridItem w='100%' h='16'>
             <Text className="pt-3 ps-2" fontWeight={"bold"}

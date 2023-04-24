@@ -2,27 +2,25 @@ import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect, useState} from "react";
 import {findEventsThunk} from "../services/event-thunks";
 import {findDistanceMatrix} from "../services/distance-matrix-service";
-import {useNavigate} from "react-router";
 import {Text} from "@chakra-ui/react";
 import SearchResultEvent from "./SearchResultEvent";
 
 function SearchResults({searchLocation}) {
   const {events} = useSelector(state => state.event);
-  const [upcomingEvents, setUpcomingEvents] = useState([]);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
 
   async function findDistanceMatrices() {
-    if (searchLocation !== '' && upcomingEvents !== []) {
+    if (searchLocation !== '' && searchLocation !== undefined && events.length
+        !== 0) {
       const results = await findDistanceMatrix(searchLocation,
-          upcomingEvents.map(event => event.location));
+          events.map(event => event.location));
       return results;
     }
   }
 
   function assignDistancesToEvents(distanceMatrixResults) {
-    const eventsWithDistances = upcomingEvents.map(event => {
+    const eventsWithDistances = events.map(event => {
       const resultForEvent = distanceMatrixResults.find(dmr =>
           dmr.destination === event.location);
       if (resultForEvent && resultForEvent.distance) {
@@ -33,7 +31,12 @@ function SearchResults({searchLocation}) {
     });
     const sortedEventsWithDistances = eventsWithDistances.sort(
         (a, b) => a.distance - b.distance);
-    setSearchResults(sortedEventsWithDistances);
+    const futureEvents = sortedEventsWithDistances.filter(event => {
+      const eventDate = new Date(event.startDateTime);
+      const currentDate = new Date();
+      return eventDate > currentDate;
+    });
+    setSearchResults(futureEvents);
   }
 
   useEffect(() => {
@@ -42,22 +45,16 @@ function SearchResults({searchLocation}) {
         assignDistancesToEvents(matrix.rows[0].elements);
       }
     });
-  }, [searchLocation]);
+  }, [searchLocation, events]);
 
   useEffect(() => {
     dispatch(findEventsThunk());
-    const futureEvents = events.filter(event => {
-      const eventDate = new Date(event.startDateTime);
-      const currentDate = new Date();
-      return eventDate > currentDate;
-    });
-    setUpcomingEvents(futureEvents);
     findDistanceMatrices().then(matrix => {
       if (matrix && matrix.rows[0]) {
         assignDistancesToEvents(matrix.rows[0].elements);
       }
     });
-  }, []);
+  }, [searchLocation]);
 
   return (
       <>
